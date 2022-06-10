@@ -1,0 +1,30 @@
+name: panopticnerf
+channels:
+  - pytorch
+  - plotly
+  - anaconda
+  - conda-forge
+  - defaults
+dependencies:
+  - cudatoolkit=11.3.1
+  - pip=21.2.2
+  - python=3.7.10
+  - pytorch=1.10.1
+  - torchvision=0.11.2
+  - pip:
+    - numpy==1.21.5
+    - argparse==1.1
+    - trimesh==3.9.42
+    - matplotlib==3.5.1
+    - opencv-python==4.5.3.56
+    - open3d==0.9.0.0
+    - pyyaml==5.4.1
+    - scikit-image==0.19.2
+    - tqdm==4.62.2
+    - ipdb==0.13.9
+    - imgaug==0.4.0
+    - tensorboard==2.6.0
+    - tensorboardX==2.4
+    - termcolor==1.1.0
+    - prefetch-generator==1.0.1
+    - tabulate==0.8.9

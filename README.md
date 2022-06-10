@@ -1,26 +1,49 @@
-# Panoptic NeRF
-### [Project Page](https://fuxiao0719.github.io/projects/panopticnerf/) | [Paper](http://arxiv.org/abs/2203.15224) | [Dataset](http://www.cvlibs.net/datasets/kitti-360/)
-<br/>      
+<div align="center">
 
-> [Panoptic NeRF: 3D-to-2D Label Transfer for Panoptic Urban Scene Segmentation](http://arxiv.org/abs/2203.15224)  
-> Xiao Fu*, Shangzhan zhang*, Tianrun Chen, Yichong Lu, Lanyun Zhu, Xiaowei Zhou, Andreas Geiger, Yiyi Liao\
-> arXiv 2022
+<h1>Panoptic NeRF: 3D-to-2D Label Transfer for Panoptic Urban Scene Segmentation</h1>
+
+<div>
+    <a href='https://fuxiao0719.github.io/' target='_blank'>Xiao Fu</a><sup>1</sup>*&emsp;
+    Shangzhan Zhang<sup>1</sup>*&emsp;
+    Tianrun Chen<sup>1</sup>&emsp;
+    Yichong Lu<sup>1</sup>&emsp;
+    <a href='https://lanyunzhu.site/' target='_blank'>Lanyun Zhu</a><sup>2</sup>&emsp;
+    <a href='https://xzhou.me/' target='_blank'>Xiaowei Zhou</a><sup>2</sup>&emsp;
+    <a href='http://www.cvlibs.net/' target='_blank'>Andreas Geiger</a><sup>3</sup>&emsp;
+    <a href='https://yiyiliao.github.io/' target='_blank'>Yiyi Liao</a><sup>1+</sup>
+</div>
+<div>
+    <sup>1</sup>Zhejiang University&emsp;
+    <sup>2</sup>Singapore University of Technology and Design&emsp;
+    <sup>3</sup>University of Tübingen and MPI-IS
+</div>
+<div>
+    *equal contribution&emsp;
+    <sup>+</sup>corresponding author
+</div>
+
+<strong>arXiv 2022 </strong>
+
+<h4 align="center">
+  <a href="https://fuxiao0719.github.io/projects/panopticnerf/" target='_blank'>[Project Page]</a> •
+  <a href="http://arxiv.org/abs/2203.15224" target='_blank'>[Paper]</a> •
+  <a href="http://www.cvlibs.net/datasets/kitti-360/" target='_blank'>[Dataset]</a> •
+  <a href="https://fuxiao0719.github.io/projects/panopticnerf/video/demo.mp4" target='_blank'>[Supplementary Video]</a>
+</h4>
 
 ![image](https://fuxiao0719.github.io/projects/panopticnerf/images/pipeline.jpg)
 
+</div>
+
+## Updates
+* [04/2022] Code release.
+* [03/2022] [Paper](http://arxiv.org/abs/2203.15224) uploaded to arXiv. [![arXiv](https://img.shields.io/badge/arXiv-2203.15224-b31b1b.svg)](http://arxiv.org/abs/2203.15224)
+
 ## Installation
-1. Create a virtual environment via `conda`.
+1. Create a virtual environment via `conda`. This environment is built on `RTX 3090` and can be modified manually.
     ```
-    conda create -n panopticnerf python=3.7
+    conda env create -f environment.yml
     conda activate panopticnerf
-    ```
-2. Install `torch` and `torchvision`.
-    ```
-    conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
-    ```
-3. Install requirements.
-    ```
-    pip install -r requirements.txt
     ```
 
 ## Data Preparation
@@ -110,10 +133,6 @@
   ```
   python eval_consistency.py --cfg_file configs/panopticnerf_test.yaml use_stereo False consistency_thres 0.1
   ```
-
-## News
-* `12/04/2022` Code released.
-* `29/03/2022` Repo created. Code will come soon.
 
 ## Citation
 
