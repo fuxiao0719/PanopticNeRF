@@ -10,7 +10,7 @@
     <a href='https://lanyunzhu.site/' target='_blank'>Lanyun Zhu</a><sup>2</sup>&emsp;
     <a href='https://xzhou.me/' target='_blank'>Xiaowei Zhou</a><sup>2</sup>&emsp;
     <a href='http://www.cvlibs.net/' target='_blank'>Andreas Geiger</a><sup>3</sup>&emsp;
-    <a href='https://yiyiliao.github.io/' target='_blank'>Yiyi Liao</a><sup>1+</sup>
+    <a href='https://yiyiliao.github.io/' target='_blank'>Yiyi Liao</a><sup>1†</sup>
 </div>
 <div>
     <sup>1</sup>Zhejiang University&emsp;
@@ -36,9 +36,9 @@
 </div>
 
 ## Updates
-* [08/2022] Paper accepted to 3DV 2022.
+* [08/2022] Paper accepted to <a href="https://3dvconf.github.io/2022/" target='_blank'>[3DV 2022]</a>.
 * [04/2022] Code released.
-* [03/2022] [Paper](http://arxiv.org/abs/2203.15224) uploaded to arXiv. [![arXiv](https://img.shields.io/badge/arXiv-2203.15224-b31b1b.svg)](http://arxiv.org/abs/2203.15224)
+* [03/2022] <a href="http://arxiv.org/abs/2203.15224" target='_blank'>[Paper]</a> uploaded to arXiv. [![arXiv](https://img.shields.io/badge/arXiv-2203.15224-b31b1b.svg)](http://arxiv.org/abs/2203.15224)
 
 ## Installation
 1. Create a virtual environment via `conda`. This environment is built on `RTX 3090` and can be modified manually.
