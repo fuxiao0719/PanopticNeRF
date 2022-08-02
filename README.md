@@ -22,7 +22,7 @@
     <sup>+</sup>corresponding author
 </div>
 
-<strong>arXiv 2022 </strong>
+<strong>3DV 2022 </strong>
 
 <h4 align="center">
   <a href="https://fuxiao0719.github.io/projects/panopticnerf/" target='_blank'>[Project Page]</a> •
@@ -36,7 +36,8 @@
 </div>
 
 ## Updates
-* [04/2022] Code release.
+* [08/2022] Paper accepted to 3DV 2022.
+* [04/2022] Code released.
 * [03/2022] [Paper](http://arxiv.org/abs/2203.15224) uploaded to arXiv. [![arXiv](https://img.shields.io/badge/arXiv-2203.15224-b31b1b.svg)](http://arxiv.org/abs/2203.15224)
 
 ## Installation
@@ -137,11 +138,11 @@
 ## Citation
 
 ```bibtex
-@article{fu2022panoptic,
+@inproceedings{fu2022panoptic,
   title={Panoptic NeRF: 3D-to-2D Label Transfer for Panoptic Urban Scene Segmentation},
   author={Fu, Xiao and Zhang, Shangzhan and Chen, Tianrun and Lu, Yichong and Zhu, Lanyun and Zhou, Xiaowei and Geiger, Andreas and Liao, Yiyi},
-  journal={arXiv preprint arXiv:2203.15224},
-  year={2022}
+  booktitle = {International Conference on 3D Vision (3DV)},
+  year = {2022}
 }
 ```
 Copyright © 2022, Zhejiang University. All rights reserved. We favor any positive inquiry, please contact `lemonaddie0909@zju.edu.cn`.
