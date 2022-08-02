@@ -36,7 +36,7 @@
 </div>
 
 ## Updates
-* [08/2022] Paper accepted to <a href="https://3dvconf.github.io/2022/" target='_blank'>[3DV 2022]</a>.
+* [08/2022] Paper accepted to <a href="https://3dvconf.github.io/2022/" target='_blank'>3DV 2022</a>.
 * [04/2022] Code released.
 * [03/2022] <a href="http://arxiv.org/abs/2203.15224" target='_blank'>[Paper]</a> uploaded to arXiv. [![arXiv](https://img.shields.io/badge/arXiv-2203.15224-b31b1b.svg)](http://arxiv.org/abs/2203.15224)
 
