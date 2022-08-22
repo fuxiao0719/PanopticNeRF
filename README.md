@@ -48,7 +48,7 @@
     ```
 
 ## Data Preparation
-1. We evaluate our model on [KITTI-360](http://www.cvlibs.net/datasets/kitti-360/). Here we show the structure of a test dataset as follow. You can download it from [here](https://drive.google.com/file/d/1JkG8JbnVaxh3aMBo8vnKRT0Pvql1XQpU/view?usp=sharing) and then put it into `$ROOT`.
+1. We evaluate our model on [KITTI-360](http://www.cvlibs.net/datasets/kitti-360/). Here we show the structure of a test dataset as follow. You can download it from [here](https://drive.google.com/file/d/1oJF8e5m4yPrRArn6EPmqXguIl-au2FnT/view?usp=sharing) and then put it into `$ROOT`. In the `datasets`, we additionally provide some test files on different scenes.
     ```
     ├── KITTI-360
       ├── 2013_05_28_drive_0000_sync
@@ -117,7 +117,7 @@
   ```
 1. Download the released [pretrained model](https://drive.google.com/drive/folders/1jd8eWfXDH7D09y4Ul1w7GKfTy3BqJZgk?usp=sharing) and put it to `$ROOT/data/trained_model/panopticnerf/panopticnerf_test/latest.pth`.
 
-2. Correspondingly, we provide some semantic & panoptic GTs and LiDAR point clouds for evaluation. The details of evaluation metrics can be found in the paper.
+2. We provide some semantic & panoptic GTs and LiDAR point clouds for evaluation. The details of evaluation metrics can be found in the paper.
 3. Eval mean intersection-over-union (mIoU)
   ```
   python run.py --type eval_miou --cfg_file configs/panopticnerf_test.yaml use_stereo False
