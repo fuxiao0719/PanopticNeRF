@@ -267,9 +267,7 @@ def pq_compute(gt_json_file, pred_json_file):
     return results
 
 def evaluate():
-    path_list = glob.glob('data/result/panopticnerf/panopticnerf_test*')
-    gt_json = {}
-    pred_json = {}
+    path_list = glob.glob(cfg.result_dir)
     gt_json = []
     pred_json = []
     for path in path_list:

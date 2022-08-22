@@ -48,7 +48,7 @@
     ```
 
 ## Data Preparation
-1. We evaluate our model on [KITTI-360](http://www.cvlibs.net/datasets/kitti-360/). Here we show the structure of a test dataset as follow. You can download it from [here](https://drive.google.com/file/d/1JkG8JbnVaxh3aMBo8vnKRT0Pvql1XQpU/view?usp=sharing) and then put it into `$ROOT` (RGBs should query the KITTI-360 website).
+1. We evaluate our model on [KITTI-360](http://www.cvlibs.net/datasets/kitti-360/). Here we show the structure of a test dataset as follow. You can download it from [here](https://drive.google.com/file/d/1JkG8JbnVaxh3aMBo8vnKRT0Pvql1XQpU/view?usp=sharing) and then put it into `$ROOT`.
     ```
     ├── KITTI-360
       ├── 2013_05_28_drive_0000_sync
@@ -99,7 +99,7 @@
     python train_net.py --cfg_file configs/panopticnerf_test.yaml pretrain nerf gpus '1,' use_stereo True use_pspnet True use_depth True pseudo_filter True weight_th 0.05 resume False
     ```
 
-2. Render semantic map, panoptic map and depth map in a single forward pass, which takes around 10s per-frame on a single 3090 GPU. Please make sure to maximize the GPU memory utilization by increasing the size of the chunk to reduce inference time. Replace `use_stereo False` with `use_stereo True` to render the right views.
+2. Render semantic map, panoptic map and depth map in a single forward pass, which takes around 16s per-frame on a single 3090 GPU. Please make sure to maximize the GPU memory utilization by increasing the size of the chunk to reduce inference time. Replace `use_stereo False` with `use_stereo True` to render the right views.
     ```
     python run.py --type visualize --cfg_file configs/panopticnerf_test.yaml use_stereo False
     ```
@@ -115,9 +115,9 @@
     ├── gt_2d_panoptics
     ├── lidar_depth
   ```
-1. Download the corresponding [pretrained model](https://drive.google.com/drive/folders/1jd8eWfXDH7D09y4Ul1w7GKfTy3BqJZgk?usp=sharing) and put it to `$ROOT/data/trained_model/panopticnerf/panopticnerf_test/latest.pth`.
+1. Download the released [pretrained model](https://drive.google.com/drive/folders/1jd8eWfXDH7D09y4Ul1w7GKfTy3BqJZgk?usp=sharing) and put it to `$ROOT/data/trained_model/panopticnerf/panopticnerf_test/latest.pth`.
 
-2. We provide some semantic & panoptic GTs and LiDAR point clouds for evaluation. The details of evaluation metrics can be found in the paper.
+2. Correspondingly, we provide some semantic & panoptic GTs and LiDAR point clouds for evaluation. The details of evaluation metrics can be found in the paper.
 3. Eval mean intersection-over-union (mIoU)
   ```
   python run.py --type eval_miou --cfg_file configs/panopticnerf_test.yaml use_stereo False

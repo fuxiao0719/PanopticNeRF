@@ -18,6 +18,7 @@ def run_eval_miou():
         if (frame < cfg.start) or (frame > cfg.start + cfg.train_frames):
             continue
         pred_path = os.path.join(cfg.result_dir ,'2/img{}_pred_semantic.npy'.format(frame))
+        # pred_path = os.path.join('/data/xfu/projects/3dv-2022-panopticnerf/baselines/crf/semantic' , 'result_0000_00{}.png'.format(frame))
         evaluator.evaluate(gt_path, pred_path, '')
     evaluator.summarize()
 

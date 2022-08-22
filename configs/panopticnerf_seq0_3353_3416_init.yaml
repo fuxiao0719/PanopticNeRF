@@ -1,0 +1,94 @@
+task: panopticnerf
+gpus: [0, 1, 2, 3, 4, 5]
+exp_name: 'panopticnerf_seq0_3353_3416_init'
+
+####
+src_views_num: 3
+volume_pad: 0
+depth_planes_num: 128
+N_rays: 2048
+chunk_size: 2048
+N_samples: 3
+white_bkgd: False
+render_scale: 0.5
+input_ratio: 0.5
+src_views_num: 4
+net_width: [512]
+fr_pos: 15
+train_frames: 64
+test_frames: 64
+frame_id: 0
+cascade_samples : [128]
+samples_all : 148
+start: 3353
+bbox_sp : 10
+dist : 250
+weight_th : 0.05
+semantic_weight : 0.01
+lambda_depth : 0.1
+lambda_fix : 1.
+lambda_semantic_2d : 1.
+lambda_3d : 1.
+crf_seq: 5
+max_depth : 100.
+center_pose: [1360.034, 3845.649, 116.8115]
+val_list : [3365, 3375, 3385, 3395, 3405]
+depth_object : [9, 12, 35]
+consistency_thres : 0.1
+use_stereo : True
+use_pspnet : True
+use_depth : True
+detach : True
+pseudo_filter : True
+lidar_depth_root : datasets/KITTI-360/lidar_depth/2013_05_28_drive_0000_sync_003221_003475
+semantic_gt_root : datasets/KITTI-360/gt_2d_semantics/seq_0000/semantic
+panoptic_gt_root : datasets/KITTI-360/gt_2d_panoptics/seq_0000/instance
+train_dataset_module: lib.datasets.kitti360.panopticnerf
+test_dataset_module: lib.datasets.kitti360.panopticnerf
+
+network_module: lib.networks.panopticnerf
+loss_module: lib.train.losses.panopticnerf
+
+evaluator_module: lib.evaluators.eval_miou
+visualizer_module: lib.visualizers.panopticnerf
+
+train_dataset:
+    cam2world_root: 'datasets/KITTI-360/data_poses/2013_05_28_drive_0000_sync/cam0_to_world.txt'
+    img_root: 'datasets/KITTI-360/2013_05_28_drive_0000_sync'
+    bbx_root: 'datasets/KITTI-360/data_3d_bboxes'
+    data_root: 'datasets/KITTI-360/'
+    sequence: '2013_05_28_drive_0000_sync'
+    pseudo_root : 'datasets/KITTI-360/pspnet/2013_05_28_drive_0000_sync'
+    scene: 'seq0_3353-3416'
+    split: 'train'
+
+test_dataset:
+    cam2world_root: 'datasets/KITTI-360/data_poses/2013_05_28_drive_0000_sync/cam0_to_world.txt'
+    img_root: 'datasets/KITTI-360/2013_05_28_drive_0000_sync'
+    bbx_root: 'datasets/KITTI-360/data_3d_bboxes'
+    data_root: 'datasets/KITTI-360/'
+    sequence: '2013_05_28_drive_0000_sync'
+    pseudo_root : 'datasets/KITTI-360/pspnet/2013_05_28_drive_0000_sync'
+    scene: 'seq0_3353-3416'
+    split: 'val'
+
+train:
+    batch_size: 1
+    lr: 5e-4
+    weight_decay: 0.
+    epoch: 80
+    scheduler:
+        type: 'exponential'
+        gamma: 0.5
+        decay_epochs: 80
+    num_workers: 3
+
+test:
+    dataset: KITTI360Val
+    batch_size: 1
+
+ep_iter: 1000
+save_ep: 1
+eval_ep: 1
+save_latest_ep: 1
+log_interval: 1

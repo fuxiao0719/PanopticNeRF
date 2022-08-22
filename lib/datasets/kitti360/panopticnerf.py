@@ -59,7 +59,10 @@ class Dataset:
             pose = np.concatenate((pose, np.array([0., 0., 0.,1.]).reshape(1, 4)))
             self.cam2world_dict_01[frame] = np.matmul(np.matmul(pose, self.camToPose), np.linalg.inv(self.R_rect))
         self.translation = np.array(cfg.center_pose)
-        if False:
+
+        # generate spiral poses
+        spiral_poses = False
+        if spiral_poses == True:
             up = np.array([0,0,-1])
             close_depth, inf_depth = 1, 100
             dt = .75

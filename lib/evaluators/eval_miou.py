@@ -43,6 +43,7 @@ class Evaluator:
         self.frames.append(frame)
         gt = cv2.imread(gt_path, cv2.IMREAD_GRAYSCALE).astype(np.int)
         pred = np.load(pred_path).astype(np.int)[..., 0]
+        # pred = cv2.imread(pred_path, cv2.IMREAD_GRAYSCALE).astype(np.int)
         pred_upscale = cv2.resize(pred, (gt.shape[1],gt.shape[0]), interpolation = cv2.INTER_NEAREST)
         pred = pred_upscale
         mask = (gt!=255) & (gt!=0) & (pred!=255) & (pred!=0) &(gt!=38) & (gt!=17)
@@ -58,7 +59,7 @@ class Evaluator:
         mask = (mIoUs>0) & (mIoUs<1)
         mIoUs = mIoUs[mask]
         self.miou_dict[frame] = np.mean(mIoUs)
-
+    
     def summarize(self):
         miou_list = []
         gt_all = np.concatenate(self.gt_list)

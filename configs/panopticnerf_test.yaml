@@ -6,7 +6,7 @@ exp_name: 'panopticnerf_test'
 src_views_num: 3
 volume_pad: 0
 depth_planes_num: 128
-N_rays: 512
+N_rays: 2048
 chunk_size: 2048
 N_samples: 3
 white_bkgd: False
@@ -32,7 +32,7 @@ lambda_3d : 1.
 crf_seq: 5
 max_depth : 100.
 center_pose: [1360.034, 3845.649, 116.8115]
-val_list : [3365, 3375, 3385, 3395, 3400]
+val_list : [3365, 3375, 3385, 3395, 3405]
 depth_object : [9, 12, 35]
 consistency_thres : 0.1
 use_stereo : True
@@ -54,7 +54,7 @@ visualizer_module: lib.visualizers.panopticnerf
 
 train_dataset:
     cam2world_root: 'datasets/KITTI-360/data_poses/2013_05_28_drive_0000_sync/cam0_to_world.txt'
-    img_root: 'data/datasets/KITTI-360/2013_05_28_drive_0000_sync'
+    img_root: 'datasets/KITTI-360/2013_05_28_drive_0000_sync'
     bbx_root: 'datasets/KITTI-360/data_3d_bboxes'
     data_root: 'datasets/KITTI-360/'
     sequence: '2013_05_28_drive_0000_sync'
@@ -64,7 +64,7 @@ train_dataset:
 
 test_dataset:
     cam2world_root: 'datasets/KITTI-360/data_poses/2013_05_28_drive_0000_sync/cam0_to_world.txt'
-    img_root: 'data/datasets/KITTI-360/2013_05_28_drive_0000_sync'
+    img_root: 'datasets/KITTI-360/2013_05_28_drive_0000_sync'
     bbx_root: 'datasets/KITTI-360/data_3d_bboxes'
     data_root: 'datasets/KITTI-360/'
     sequence: '2013_05_28_drive_0000_sync'
