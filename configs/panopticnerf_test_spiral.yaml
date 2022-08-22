@@ -1,6 +1,6 @@
 task: panopticnerf
 gpus: [0, 1, 2, 3, 4, 5]
-exp_name: 'panopticnerf_seq0_1538_1601_init'
+exp_name: 'panopticnerf_test'
 
 ####
 src_views_num: 3
@@ -20,9 +20,9 @@ test_frames: 64
 frame_id: 0
 cascade_samples : [128]
 samples_all : 148
-start: 1538
+start: 3353
 bbox_sp : 10
-dist : 270
+dist : 250
 weight_th : 0.05
 semantic_weight : 0.01
 lambda_depth : 0.1
@@ -31,26 +31,27 @@ lambda_semantic_2d : 1.
 lambda_3d : 1.
 crf_seq: 5
 max_depth : 100.
-center_pose: [1130.46719983, 3969.92954086, 115.97836078]
-val_list : [1545,1555,1565,1575,1585,1595]
+center_pose: [1360.034, 3845.649, 116.8115]
 depth_object : [9, 12, 35]
+spiral_frame: 3400
+spiral_frames_num: 32
 consistency_thres : 0.1
 use_stereo : True
 use_pspnet : True
 use_depth : True
 detach : True
 pseudo_filter : True
-lidar_depth_root : datasets/KITTI-360/lidar_depth/2013_05_28_drive_0000_sync_001537_001775
+lidar_depth_root : datasets/KITTI-360/lidar_depth/2013_05_28_drive_0000_sync_003221_003475
 semantic_gt_root : datasets/KITTI-360/gt_2d_semantics/seq_0000/semantic
 panoptic_gt_root : datasets/KITTI-360/gt_2d_panoptics/seq_0000/instance
-train_dataset_module: lib.datasets.kitti360.panopticnerf
-test_dataset_module: lib.datasets.kitti360.panopticnerf
+train_dataset_module: lib.datasets.kitti360.panopticnerf_spiral
+test_dataset_module: lib.datasets.kitti360.panopticnerf_spiral
 
 network_module: lib.networks.panopticnerf
 loss_module: lib.train.losses.panopticnerf
 
 evaluator_module: lib.evaluators.eval_miou
-visualizer_module: lib.visualizers.panopticnerf
+visualizer_module: lib.visualizers.panopticnerf_spiral
 
 train_dataset:
     cam2world_root: 'datasets/KITTI-360/data_poses/2013_05_28_drive_0000_sync/cam0_to_world.txt'
@@ -59,7 +60,7 @@ train_dataset:
     data_root: 'datasets/KITTI-360/'
     sequence: '2013_05_28_drive_0000_sync'
     pseudo_root : 'datasets/KITTI-360/pspnet/2013_05_28_drive_0000_sync'
-    scene: 'seq0_1538-1601'
+    scene: 'seq0_3353-3416'
     split: 'train'
 
 test_dataset:
@@ -69,7 +70,7 @@ test_dataset:
     data_root: 'datasets/KITTI-360/'
     sequence: '2013_05_28_drive_0000_sync'
     pseudo_root : 'datasets/KITTI-360/pspnet/2013_05_28_drive_0000_sync'
-    scene: 'seq0_1538-1601'
+    scene: 'seq0_3353-3416'
     split: 'val'
 
 train:

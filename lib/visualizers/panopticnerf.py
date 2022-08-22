@@ -45,6 +45,7 @@ class Visualizer:
             img_id = int(batch["meta"]["tar_idx"].item())
             result_dir = cfg.result_dir
             result_dir = os.path.join(result_dir, batch['meta']['sequence'][0])
+
             print(result_dir)
 
             os.system("mkdir -p {}".format(result_dir))

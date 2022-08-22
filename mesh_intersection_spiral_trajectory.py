@@ -8,7 +8,7 @@ import cv2
 from lib.config import cfg
 from glob import glob
 from tools.kitti360scripts.helpers.annotation import Annotation2D, Annotation2DInstance, Annotation3D
-from lib.utils.data_utils import readVariable, loadCalibrationCameraToPose, build_rays
+from lib.utils.data_utils import *
 
 # AABB
 def get_near_far(bounds, ray_o, ray_d):
@@ -37,13 +37,15 @@ def get_near_far(bounds, ray_o, ray_d):
         return False
 
 class Dataset:
-    def __init__(self, cam2world_root, img_root, bbx_root, data_root, sequence, split, frame_num, frame_start, use_stereo):
+    def __init__(self, cam2world_root, img_root, bbx_root, data_root, sequence, split, frame_num, spiral_frame, use_stereo):
         super(Dataset, self).__init__()
         self.data_root = data_root
         self.image_root = img_root
         self.split = split
         self.ratio = 0.5
         self.use_stereo = use_stereo
+        self.spiral_frame = spiral_frame
+        self.frame_num = frame_num
         self.sequence = sequence
         self.cam2world_dict_00 = {}
         self.cam2world_dict_01 = {}
@@ -74,21 +76,29 @@ class Dataset:
     
         self.visible_id = os.path.join(data_root, 'visible_id', sequence)
         self.annotation3D = Annotation3D(bbx_root, sequence)
-        self.start = frame_start
-        train_ids = np.arange(self.start, self.start + frame_num)
-        test_ids = np.arange(self.start, self.start + frame_num)
-        if split == 'train':
-            self.image_ids = train_ids
-        elif split == 'val':
-            self.image_ids = test_ids
-        elif split == 'test':
-            self.image_ids = test_ids
+
+        self.spiral_views = {}        
         self.metas = {}
-        for idx in self.image_ids:
-            pose = self.cam2world_dict[idx].astype(np.float32)
-            pose[:3, 3] -= self.cam2world_dict[self.start][:3, 3]
-            filename = '000000'+str(idx)+'.png'
-            self.metas[idx-self.start] = self.func((pose, filename, idx))
+
+        # generate spiral poses
+        up = np.array([0,0,-1])
+        close_depth, inf_depth = 1, 100
+        dt = .75
+        mean_dz = 1./(((1.-dt)/close_depth + dt/inf_depth))
+        focal = mean_dz
+        zdelta = close_depth * .2
+        tt = poses[:,:3,3] # ptstocam(poses[:3,3,:].T, c2w).T
+        rads = np.percentile(np.abs(tt), 90, 0)
+        c2w_path = self.cam2world_dict[self.spiral_frame] #c2w
+        N_views = self.frame_num
+        N_rots = 2
+        render_poses = render_path_spiral(c2w_path, up, rads, focal, zdelta, zrate=.5, rots=N_rots, N=N_views)
+        self.render_poses = np.array(render_poses).astype(np.float32)
+
+        for idx in range(self.frame_num):
+            pose = self.render_poses[idx]
+            filename = '000000'+str(self.spiral_frame)+'.png'
+            self.metas[idx] = self.func((pose, filename, idx))
         self.bbx_static = {}
         self.bbx_static_annotationId = []
         self.bbx_static_center = []
@@ -110,44 +120,31 @@ class Dataset:
             annotationId = np.array(list(map(int, data)))
         return (rays.astype(np.float32), W, H, np.unique(annotationId), idx)
     
-    def generate_npy(self, idx, bbx_npy_root):
+    def __getitem__(self, index):
+        initial_time = time.time()
+        rays, W, H, annotationId_list, idx = self.metas[index]
         annotationId_list = []
-        filename, _ = os.path.splitext('000000'+str(idx)+'.png')
+        filename, _ = os.path.splitext('000000'+str(self.spiral_frame)+'.png')
         filename = os.path.join(self.visible_id, filename + '.txt')
         with open(filename, "r") as f:  
             data = f.read().splitlines() 
             annotationId = np.array(list(map(int, data)))  
         annotationId_list.append(np.unique(annotationId))
         annotationId_list = np.concatenate(annotationId_list)
-        np.save(bbx_npy_root, np.unique(annotationId_list))
-
-    def __getitem__(self, index):
-        initial_time = time.time()
-        rays, W, H, annotationId_list, idx = self.metas[index]
-        bbx_npy_root = os.path.join(self.data_root, 'bbx', self.sequence)
-        if os.path.exists(bbx_npy_root) == False:
-            os.system('mkdir -p {}'.format(bbx_npy_root))
-        image_path = os.path.join(img_root, '000000'+str(idx)+'.png')
-        filename = os.path.basename(image_path)[:-4]
-        fileroot = os.path.join(bbx_npy_root, filename + '.npy')
-        if os.path.exists(fileroot) == True:
-            os.system('rm {}'.format(fileroot))
-        self.generate_npy(idx, fileroot)
-        annotationId_list = np.load(fileroot)
         bbx = []
-        bbx_intersection_root = os.path.join(data_root, 'bbx_intersection', self.sequence)
+        bbx_intersection_root = os.path.join(data_root, 'bbx_intersection', self.sequence, 'spiral_'+ str(self.spiral_frame))
         if os.path.exists(bbx_intersection_root) == False:
             os.system('mkdir -p {}'.format(bbx_intersection_root))
         if self.use_stereo:
-            if os.path.exists(os.path.join(bbx_intersection_root,str(index+self.start)+'_01.npz')) == True:
+            if os.path.exists(os.path.join(bbx_intersection_root, str(index)+'_01.npz')) == True:
                 return 0
         else:
-            if os.path.exists(os.path.join(bbx_intersection_root,str(index+self.start)+'.npz')) == True:
+            if os.path.exists(os.path.join(bbx_intersection_root, str(index)+'.npz')) == True:
                 return 0
         for annotationId in annotationId_list:
             if annotationId in self.bbx_static.keys():
                 temp = copy.deepcopy(self.bbx_static[annotationId])
-                xyz = self.bbx_static[annotationId].vertices - self.cam2world_dict[self.start][:3, 3]
+                xyz = self.bbx_static[annotationId].vertices
                 max_xyz = np.max(xyz, axis = 0)
                 min_xyz = np.min(xyz, axis = 0)
                 bounds = np.stack([min_xyz, max_xyz], axis=0)
@@ -172,7 +169,7 @@ class Dataset:
                 ray_origins = rays[..., 0:3]
                 ray_directions = rays[..., 3:6]
                 locations, index_rays, index_tris = mesh_tri.ray.intersects_location(ray_origins=ray_origins, ray_directions=ray_directions)
-            print('frame {0}: obj{1}/{2} costs {3} s'.format(index+self.start, obj_num, len_bbox, time.time()-start_time))  
+            print('spiral frame {0} of frame {1}: obj{2}/{3} costs {4} s'.format(index, self.spiral_frame, obj_num, len_bbox, time.time()-start_time))  
             if len(locations) == 0:
                 continue
             else:
@@ -221,10 +218,11 @@ class Dataset:
                     if final_annotations[i][j][k][0] != -1.:
                         final_annotations[i][j][k][1] = self.bbx_static[int(final_annotations[i][j][k][0])].semanticId
         if self.use_stereo:
-            np.savez(os.path.join(bbx_intersection_root,str(index+self.start)+'_01.npz'), final_depths, final_annotations)
+            np.savez(os.path.join(bbx_intersection_root, str(index)+'_01.npz'), final_depths, final_annotations)
         else:
-            np.savez(os.path.join(bbx_intersection_root,str(index+self.start)+'.npz'), final_depths, final_annotations)
-        print("frame {0} is done, costs {1} s".format(index+self.start, time.time() - initial_time))
+            np.savez(os.path.join(bbx_intersection_root, str(index)+'.npz'), final_depths, final_annotations)
+
+        print("spiral frame {0} of frame {1} is done, costs {2} s".format(index, self.spiral_frame, time.time() - initial_time))
         return 0
 
     def load_intrinsic(self, intrinsic_file):
@@ -256,7 +254,7 @@ class Dataset:
         return len(self.metas)
 
 if __name__ == "__main__":
-    frame_start = cfg.intersection_start_frame
+    spiral_frame = cfg.intersection_spiral_frame
     frame_num = cfg.intersection_frames
     data_root = 'datasets/KITTI-360'
     use_stereo = cfg.use_stereo
@@ -271,8 +269,8 @@ if __name__ == "__main__":
     else:
         img_root = os.path.join(data_root, sequence, 'image_00/data_rect')
     cam2world_root = os.path.join(data_root, 'data_poses', sequence, 'cam0_to_world.txt')
-    print('{0} : {1}'.format(sequence, int(frame_start)))
-    mesh_intersection = Dataset(cam2world_root, img_root, bbx_root, data_root, sequence, split, frame_num, frame_start, use_stereo)
+    print('{0} : {1}'.format(sequence, int(spiral_frame)))
+    mesh_intersection = Dataset(cam2world_root, img_root, bbx_root, data_root, sequence, split, frame_num, spiral_frame, use_stereo)
     train_loader = torch.utils.data.DataLoader(mesh_intersection, batch_size=1, shuffle=False, num_workers=16)
     for i, data in enumerate(train_loader):
-        print('{0} / {1} is done.'.format(i+frame_start, len(train_loader)+frame_start-1))
+        print('{0} / {1} is done.'.format(i, frame_num))

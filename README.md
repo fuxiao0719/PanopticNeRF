@@ -104,8 +104,14 @@
     python run.py --type visualize --cfg_file configs/panopticnerf_test.yaml use_stereo False
     ```
     <img src="figs/rendering.png" width="100%">
-3. Visualize novel view appearance & label synthesis. Before rendering, select a frame and generate corresponding ray-mesh intersections with respect to its novel spiral poses by enabling `spiral poses==True` in `lib.datasets.kitti360.panopticnerf.py`. 
-
+3. Visualize novel view appearance & label synthesis. Before rendering, select a frame and generate corresponding ray-mesh intersections with respect to its novel spiral poses, e.g. `SPIRAL_FRAME=3400`, `NUM=32`.
+    ```
+    python mesh_intersection_spiral_trajectory.py intersection_spiral_frame ${SPIRAL_FRAME} intersection_frames ${NUM} use_stereo False
+    ```
+    Then render results of the spiral trajectory. Feel free to change codes for rendering from arbitrary poses. 
+    ```
+    python run.py --type visualize --cfg_file configs/panopticnerf_test_spiral.yaml spiral_frame ${SPIRAL_FRAME} spiral_frame_num ${NUM} use_stereo False
+    ```
     ![monocular](figs/spiral.gif)
 
 ## Evaluation
