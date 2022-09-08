@@ -28,7 +28,8 @@
   <a href="https://fuxiao0719.github.io/projects/panopticnerf/" target='_blank'>[Project Page]</a> •
   <a href="http://arxiv.org/abs/2203.15224" target='_blank'>[Paper]</a> •
   <a href="http://www.cvlibs.net/datasets/kitti-360/" target='_blank'>[Dataset]</a> •
-  <a href="https://fuxiao0719.github.io/projects/panopticnerf/video/demo.mp4" target='_blank'>[Supplementary Video]</a>
+  <a href="https://www.youtube.com/embed/5QKTeFLciWo" target='_blank'>[Video]</a> •
+  <a href="https://fuxiao0719.github.io/projects/panopticnerf/images/poster.pdf" target='_blank'>[Poster]</a>
 </h4>
 
 ![image](https://fuxiao0719.github.io/projects/panopticnerf/images/pipeline.jpg)
