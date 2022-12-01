@@ -61,15 +61,13 @@ class PQStat():
                 continue
             if (label == 17) or (label == 20) or (label == 38):
                 continue
-            # if ((iou == 0) or (tp == 0) or (fn == 0)):
-            #     print(label)
-            n += 1
-            # if label == 26:
-                # print("tp: {}, fp: {}, fn: {}".format(tp, fp, fn))
             pq_class = iou / (tp + 0.5 * fp + 0.5 * fn)
             sq_class = iou / tp if tp != 0 else 0
             rq_class = tp / (tp + 0.5 * fp + 0.5 * fn)
             per_class_results[label] = {'pq': pq_class, 'sq': sq_class, 'rq': rq_class}
+            if pq_class + sq_class + rq_class == 0:
+                continue
+            n += 1
             pq += pq_class
             sq += sq_class
             rq += rq_class
