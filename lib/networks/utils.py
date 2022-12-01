@@ -20,8 +20,6 @@ def raw2outputs_semantic(raw, z_vals, rays_d, one_hot_all_instance, white_bkgd=F
     T = torch.cat([torch.ones_like(T[..., 0:1]), T], dim=-1)
     weights = alpha * T
     rgb_map = torch.sum(weights[...,None] * rgb, -2)
-    m = nn.Softmax(dim=3)
-    semantic = m(semantic)
     semantic_map = torch.sum(weights[...,None] * semantic, -2)
     instance_map = torch.sum(weights[...,None] * one_hot_all_instance.to(weights), -2)
     depth_map = torch.sum(weights * z_vals, -1)
@@ -42,8 +40,6 @@ def raw2outputs_semantic_joint(raw, z_vals, rays_d, fix_label, white_bkgd=False)
     T = torch.cat([torch.ones_like(T[..., 0:1]), T], dim=-1)
     weights = alpha * T
     rgb_map = torch.sum(weights[...,None] * rgb, -2)
-    m = nn.Softmax(dim=3)
-    semantic = m(semantic)
     semantic_map = torch.sum(weights[...,None] * semantic, -2)
     fix_semantic_map = torch.sum(weights[...,None] * fix_label.to(weights), -2)
     depth_map = torch.sum(weights * z_vals, -1)

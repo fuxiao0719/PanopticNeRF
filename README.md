@@ -125,10 +125,11 @@
 1. Download the released [pretrained model](https://drive.google.com/drive/folders/1jd8eWfXDH7D09y4Ul1w7GKfTy3BqJZgk?usp=sharing) and put it to `$ROOT/data/trained_model/panopticnerf/panopticnerf_test/latest.pth`.
 
 2. We provide some semantic & panoptic GTs and LiDAR point clouds for evaluation. The details of evaluation metrics can be found in the paper.
-3. Eval mean intersection-over-union (mIoU)
+3. Eval mean intersection-over-union (mIoU).
   ```
   python run.py --type eval_miou --cfg_file configs/panopticnerf_test.yaml use_stereo False
   ```
+
 4. Eval panoptic quality (PQ)
   ```
   sh eval_pq_test.sh
@@ -141,6 +142,14 @@
   ```
   python eval_consistency.py --cfg_file configs/panopticnerf_test.yaml use_stereo False consistency_thres 0.1
   ```
+7.  The following table shows the detailed quantitative results with our pretrained models.
+
+      |Scene ID|mIoU|Acc|PQ|SQ|RQ|
+      |:-----:|:---:|:---:|:---:|:---:|:---:|
+      |1538_1601|81.3|94.2|71.0|80.9|86.5|
+      |1728_1791|79.6|92.4|62.5|75.0|81.9|
+      |1908_1971|84.4|94.3|68.4|73.6|83.5|
+      |3353_3416|83.2|95.2|65.3|75.0|78.8|
 
 ## Citation
 

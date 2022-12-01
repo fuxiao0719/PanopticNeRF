@@ -110,18 +110,17 @@ class NetworkWrapper(nn.Module):
                 mask_filter = torch.ones_like(pseudo_label.reshape(-1).long()).to(pseudo_label)>0
 
             cross_entropy = nn.CrossEntropyLoss()
-            nll = nn.NLLLoss()
             # 2d pred
             B, N_point, channel = output['semantic_map_0'].shape
             if torch.sum(mask_filter) != 0:
-                semantic_loss_2d_pred = nll(torch.log(output['semantic_map_0'].reshape(-1 ,channel)[mask_filter]+1e-5), pseudo_label.reshape(-1).long()[mask_filter])
+                semantic_loss_2d_pred = cross_entropy(output['semantic_map_0'].reshape(-1 ,channel)[mask_filter], pseudo_label.reshape(-1).long()[mask_filter])
             else:
                 semantic_loss_2d_pred = torch.tensor(0.).to(device)
             semantic_loss_2d_pred = decay * cfg.lambda_semantic_2d  * semantic_loss_2d_pred
             semantic_loss += semantic_loss_2d_pred
             
             # 2d fix
-            semantic_loss_2d_fix = nll(torch.log(output['fix_semantic_map_0'].reshape(-1 ,channel)+1e-5), pseudo_label.reshape(-1).long())
+            semantic_loss_2d_fix = cross_entropy(output['fix_semantic_map_0'].reshape(-1 ,channel), pseudo_label.reshape(-1).long())
             semantic_loss_2d_fix = cfg.lambda_fix * semantic_loss_2d_fix
             semantic_loss += semantic_loss_2d_fix
 
