@@ -164,7 +164,7 @@ class Dataset:
                 intersection = np.concatenate((intersection_depths, intersection_annotations), axis=2)
                 image = (np.array(imageio.imread(image_path)) / 255.).astype(np.float32)
                 image = cv2.resize(image, (self.W, self.H), interpolation=cv2.INTER_AREA)
-                rays = build_rays(self.intrinsic_00, pose, image.shape[0], image.shape[1])
+                rays = build_rays(self.intrinsic_01, pose, image.shape[0], image.shape[1])
                 rays_rgb = image.reshape(-1, 3)
                 pseudo_label = np.zeros_like(pseudo_label)
                 image = cv2.resize(image, (self.W, self.H), interpolation=cv2.INTER_AREA)
