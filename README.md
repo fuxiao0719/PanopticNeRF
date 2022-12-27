@@ -26,7 +26,8 @@
 
 <h4 align="center">
   <a href="https://fuxiao0719.github.io/projects/panopticnerf/" target='_blank'>[Project Page]</a> •
-  <a href="http://arxiv.org/abs/2203.15224" target='_blank'>[Paper]</a> •
+  <a href="https://www.cvlibs.net/publications/Fu2022THREEDV.pdf" target='_blank'>[Paper]</a> •
+  <a href="https://www.cvlibs.net/publications/Fu2022THREEDV_supplementary.pdf" target='_blank'>[Supplementary]</a> •
   <a href="http://www.cvlibs.net/datasets/kitti-360/" target='_blank'>[Dataset]</a> •
   <a href="https://www.youtube.com/embed/5QKTeFLciWo" target='_blank'>[Video]</a> •
   <a href="https://fuxiao0719.github.io/projects/panopticnerf/images/poster.pdf" target='_blank'>[Poster]</a>
