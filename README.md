@@ -98,7 +98,7 @@
 ## Training and Visualization
 1. We provide the training code. Replace `resume False` with `resume True` to load the pretained model.
     ```
-    python train_net.py --cfg_file configs/panopticnerf_test.yaml pretrain nerf gpus '1,' use_stereo True use_pspnet True use_depth True pseudo_filter True weight_th 0.05 resume False
+    python train_net.py --cfg_file configs/panopticnerf_test.yaml use_stereo True use_pspnet True use_depth True pseudo_filter True weight_th 0.05 resume False gpus '0,'
     ```
 
 2. Render semantic map, panoptic map and depth map in a single forward pass, which takes around 16s per-frame on a single 3090 GPU. Please make sure to maximize the GPU memory utilization by increasing the size of the chunk to reduce inference time. Replace `use_stereo False` with `use_stereo True` to render the right views.
@@ -162,4 +162,4 @@
   year = {2022}
 }
 ```
-Copyright © 2022, Zhejiang University. All rights reserved. We favor any positive inquiry, please contact `lemonaddie0909@zju.edu.cn`.
+Copyright © 2022, Zhejiang University. All rights reserved. We favor any positive inquiry, please contact `lemonaddie0909@gmail.com`.
