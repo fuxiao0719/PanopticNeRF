@@ -8,7 +8,7 @@
     Tianrun Chen<sup>1</sup>&emsp;
     Yichong Lu<sup>1</sup>&emsp;
     <a href='https://lanyunzhu.site/' target='_blank'>Lanyun Zhu</a><sup>2</sup>&emsp;
-    <a href='https://xzhou.me/' target='_blank'>Xiaowei Zhou</a><sup>2</sup>&emsp;
+    <a href='https://xzhou.me/' target='_blank'>Xiaowei Zhou</a><sup>1</sup>&emsp;
     <a href='http://www.cvlibs.net/' target='_blank'>Andreas Geiger</a><sup>3</sup>&emsp;
     <a href='https://yiyiliao.github.io/' target='_blank'>Yiyi Liao</a><sup>1†</sup>
 </div>
