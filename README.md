@@ -39,7 +39,7 @@
   title={Panoptic Neural Representation for Panoramic 3D-to-2D Label Transfer in Urban Scenes},
   author={Fu, Xiao and Zhang, Shangzhan and Chen, Tianrun and Lu, Yichong and Zhu, Lanyun and Zhou, Xiaowei and Geiger, Andreas and Liao, Yiyi},
   journal = {arxiv},
-  year = {2022}
+  year = {2023}
 }
 ```
 Copyright © 2022, Zhejiang University. All rights reserved. We favor any positive inquiry, please contact `lemonaddie0909@gmail.com`.
