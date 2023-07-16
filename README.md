@@ -14,4 +14,4 @@ Check code at branch <a href="https://github.com/fuxiao0719/PanopticNeRF/tree/pa
 
 ![monocular](figs/panopticnerf.gif)
 
-Copyright © 2022, Zhejiang University. All rights reserved. We favor any positive inquiry, please contact `lemonaddie0909@gmail.com`.
+Copyright © 2023, Zhejiang University. All rights reserved. We favor any positive inquiry, please contact `lemonaddie0909@gmail.com`.
