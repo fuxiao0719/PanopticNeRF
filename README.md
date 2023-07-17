@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1>Panoptic Neural Representation for Panoramic 3D-to-2D Label Transfer in Urban Scenes</h1>
+<h1>PanopticNeRF-360: Panoramic 3D-to-2D Label Transfer in Urban Scenes</h1>
 
 <div>
     <a href='https://fuxiao0719.github.io/' target='_blank'>Xiao Fu</a><sup>1</sup>&emsp;
@@ -36,7 +36,7 @@
 
 ```bibtex
 @article{fu2023panoptic,
-  title={Panoptic Neural Representation for Panoramic 3D-to-2D Label Transfer in Urban Scenes},
+  title={PanopticNeRF-360: Panoramic 3D-to-2D Label Transfer in Urban Scenes},
   author={Fu, Xiao and Zhang, Shangzhan and Chen, Tianrun and Lu, Yichong and Zhu, Lanyun and Zhou, Xiaowei and Geiger, Andreas and Liao, Yiyi},
   journal = {arxiv},
   year = {2023}
