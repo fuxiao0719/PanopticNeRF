@@ -1,0 +1,98 @@
+task: panopticnerf360
+gpus: [0, 1, 2, 3, 4, 5]
+exp_name: 'panopticnerf360_seq0_1908_1971_init'
+
+####
+train_frames: 64
+test_frames: 64
+fr_pos: 15
+N_rays: 1024
+N_fe_rays: 1024
+chunk_size: 2048
+bbox_sp : 10
+cascade_samples : [236]
+samples_all : 256
+img_code_ch: 12
+scene_code_ch : 24
+max_depth : 100.
+consistency_thres : 0.1
+start: 1908
+dist : 240
+center_pose: [1059.42271023, 3759.3284705, 124.39949779]
+scale_factor : [290., 300., 270.]
+val_list : [1915, 1925, 1935, 1945, 1955, 1965]
+depth_object : [9, 12, 35]
+prior_class_ids : [7, 8, 11, 12, 13, 21, 22, 23, 26, 33] 
+prior_class : [0.103, 0.092, 0.290, 0.017, 0.018, 0.302, 0.018, 0.048, 0.110, 0.001] 
+fe_prior_class_ids : [7, 8, 11, 13, 17, 21, 22, 23, 26, 32] 
+fe_prior_class : [0.162, 0.078, 0.145, 0.007, 0.002, 0.155, 0.017, 0.366, 0.061, 0.006] 
+
+# weights
+weight_th : 0.05
+lambda_depth : 0.1
+lambda_learn_semantic : 0.01
+lambda_fix_semantic : 2.
+lambda_fix_instance : 1.
+lambda_2d_semantic: 1.
+lambda_3d_semantic : 1.
+
+# activations
+detach : True
+white_bkgd : False
+use_stereo : True
+use_pspnet : True
+use_depth : True
+use_pseudo_filter : True
+use_instance_loss : False
+use_post_processing : False
+
+# paths
+train_dataset_module: lib.datasets.kitti360.panopticnerf
+test_dataset_module: lib.datasets.kitti360.panopticnerf
+network_module: lib.networks.panopticnerf
+loss_module: lib.train.losses.panopticnerf
+evaluator_module: lib.evaluators.eval_miou
+visualizer_module: lib.visualizers.panopticnerf
+
+lidar_depth_root : datasets/KITTI-360/lidar_depth/2013_05_28_drive_0000_sync_001740_001991 
+semantic_gt_root : datasets/KITTI-360/gt_2d_semantics
+panoptic_gt_root : datasets/KITTI-360/gt_2d_panoptics
+
+train_dataset:
+    cam2world_root: 'datasets/KITTI-360/data_poses/2013_05_28_drive_0000_sync/cam0_to_world.txt'
+    img_root: 'datasets/KITTI-360/2013_05_28_drive_0000_sync'
+    bbx_root: 'datasets/KITTI-360/data_3d_bboxes'
+    data_root: 'datasets/KITTI-360/'
+    sequence: '2013_05_28_drive_0000_sync'
+    pseudo_root : 'datasets/KITTI-360/pspnet/2013_05_28_drive_0000_sync'
+    split: 'train'
+
+test_dataset:
+    cam2world_root: 'datasets/KITTI-360/data_poses/2013_05_28_drive_0000_sync/cam0_to_world.txt'
+    img_root: 'datasets/KITTI-360/2013_05_28_drive_0000_sync'
+    bbx_root: 'datasets/KITTI-360/data_3d_bboxes'
+    data_root: 'datasets/KITTI-360/'
+    sequence: '2013_05_28_drive_0000_sync'
+    pseudo_root : 'datasets/KITTI-360/pspnet/2013_05_28_drive_0000_sync'
+    split: 'val'
+
+train:
+    batch_size: 1
+    lr: 5e-4
+    weight_decay: 0.
+    epoch: 30
+    scheduler:
+        type: 'exponential'
+        gamma: 0.5
+        decay_epochs: 30
+    num_workers: 3
+
+test:
+    dataset: KITTI360
+    batch_size: 1
+
+ep_iter: 1000
+save_ep: 1
+eval_ep: 1
+save_latest_ep: 1
+log_interval: 1
