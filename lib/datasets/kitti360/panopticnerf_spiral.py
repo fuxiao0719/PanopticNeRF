@@ -20,6 +20,7 @@ class Dataset:
         self.split = split
         self.sequence = sequence
         self.start = cfg.start
+        self.data_root = data_root
         self.spiral_frame = cfg.intersection_spiral_frame
         self.spiral_frame_num = cfg.intersection_frames
         self.visible_id = os.path.join(data_root, 'visible_id', sequence)

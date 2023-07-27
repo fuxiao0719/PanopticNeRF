@@ -34,10 +34,10 @@
     conda env create -f environment.yml
     conda activate panopticnerf360
     ```
-2. Install tiny-cuda-nn environment (C++/CUDA APIs) using [official instruction](https://github.com/NVlabs/tiny-cuda-nn).
+2. Install tiny-cuda-nn environment (C++/CUDA APIs) using [official guide](https://github.com/NVlabs/tiny-cuda-nn).
 
 ## Data Preparation
-1. We evaluate our model on [KITTI-360](http://www.cvlibs.net/datasets/kitti-360/). Here we show the structure of a test dataset as follow. You can download it from here and then put it into `$ROOT`. In the `datasets`, we additionally provide some evaluation files on different scenes.
+1. We evaluate our model on [KITTI-360](http://www.cvlibs.net/datasets/kitti-360/). Here we show the structure of dataset as follow. You can download it from [here](https://drive.google.com/file/d/1A4bGVXmdRbubQNHX75rK1w26OnWIfNkM/view?usp=sharing) and then put it into `$ROOT`. In the `datasets`, we additionally provide some evaluation files on different scenes.
     ```
     ├── KITTI-360
       ├── 2013_05_28_drive_0000_sync
@@ -90,11 +90,11 @@
     ```
     python run.py --type visualize --cfg_file configs/panopticnerf360_test.yaml use_stereo True use_post_processing False gpus "0," 
     ```
-3. When performing instance finetuning in a scene, run script
+3. When performing instance finetuning in a scene (here we only perform it on one scene, `scene`=`panopticnerf360_seq0_6398_6461_init`), run script
     ```
     sh instance_finetuning.sh
     ```
-   Then render the corresponding output. (here we only perform it on one scene, i.e., `scene`=`panopticnerf360_seq0_6398_6461_init`)
+   Then render the corresponding output
     ```
     python run.py --type visualize --cfg_file configs/${scene}.yaml exp_name "${scene}_ft" use_stereo True use_post_processing False gpus "0," 
     python run.py --type visualize --cfg_file configs/${scene}.yaml use_stereo True use_post_processing False gpus "0," merge_instance True
@@ -103,7 +103,7 @@
     ```
     sh rotated_trajectory.sh
     ```
-5. Visualize novel view appearance & label synthesis on panoramic view. (take frame `1961` for example)
+5. Visualize novel view appearance & label synthesis on panoramic view. (take frame `1947` for example)
     ```
     sh panorama.sh
     ```
@@ -115,7 +115,7 @@
     ├── gt_2d_panoptics
     ├── lidar_depth
   ```
-1. Download the released [pretrained model](https://drive.google.com/drive/folders/19CVMmp_LkAs_wXPZkNNwKwwZNAdVFVRX?usp=sharing) and put it to `$ROOT/data/trained_model/panopticnerf/panopticnerf360_test/latest.pth`.
+1. Download the released [pretrained model](https://drive.google.com/drive/folders/19CVMmp_LkAs_wXPZkNNwKwwZNAdVFVRX?usp=sharing) and put it to `$ROOT/data/trained_model/panopticnerf360/panopticnerf360_test/latest.pth`.
 
 2. We provide some semantic & panoptic GTs and LiDAR point clouds for evaluation. The details of evaluation metrics can be found in the paper.
 3. Eval mean intersection-over-union (mIoU).

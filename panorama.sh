@@ -1,6 +1,6 @@
 local_rank=0
 scene=panopticnerf360_test
-frame=1961
+frame=1947
 x_theta=90.
 y_theta=140.
 z_theta=0.
