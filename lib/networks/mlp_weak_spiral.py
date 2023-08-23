@@ -61,7 +61,7 @@ class NeRF(nn.Module):
 
         # semantic
         self.semantic_linears_num = 4
-        self.semantic_linears = nn.ModuleList([nn.Linear(W, W) if i==0 else nn.Linear(W, W) for i in range(self.semantic_linears_num)])
+        self.semantic_linears = nn.ModuleList([nn.Linear(W, W) for i in range(self.semantic_linears_num)])
         self.semantic_output1 = nn.Linear(W, W//2)
         self.semantic_output2 = nn.Linear(W//2, 50)
 
