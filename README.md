@@ -22,6 +22,7 @@
 <strong>arXiv 2023 </strong>
 
 <h4 align="center">
+  <a href="https://arxiv.org/pdf/2309.10815.pdf" target='_blank'>[Paper]</a> •
   <a href="https://fuxiao0719.github.io/projects/panopticnerf360/" target='_blank'>[Project Page]</a> •
   <a href="http://www.cvlibs.net/datasets/kitti-360/" target='_blank'>[Dataset]</a>
 </h4>
