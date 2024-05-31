@@ -17,10 +17,6 @@
     <sup>2</sup>Singapore University of Technology and Design&emsp;
     <sup>3</sup>University of Tübingen and MPI-IS
 </div>
-<div>
-    *equal contribution&emsp;
-    <sup>+</sup>corresponding author
-</div>
 
 <strong>3DV 2022 </strong>
 
