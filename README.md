@@ -4,7 +4,7 @@
 
 <div>
     <a href='https://fuxiao0719.github.io/' target='_blank'>Xiao Fu</a><sup>1</sup>&emsp;
-    <a href="https://zhanghe3z.github.io/" target="_blank">Shangzhan Zhang</a><sup>1</sup>&emsp;
+    <!-- <a href="https://zhanghe3z.github.io/" target="_blank">Shangzhan Zhang</a><sup>1</sup>&emsp; -->
     <a href="https://tianrun-chen.github.io/" target="_blank">Tianrun Chen</a><sup>1</sup>&emsp;
     Yichong Lu<sup>1</sup>&emsp;
     <a href='https://xzhou.me/' target='_blank'>Xiaowei Zhou</a><sup>1</sup>&emsp;
