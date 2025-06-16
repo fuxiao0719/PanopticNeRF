@@ -2,7 +2,7 @@
 
 <h1>PanopticNeRF-360 / PanopticNeRF</h1>
 
-<h2>PanopticNeRF-360: Panoramic 3D-to-2D Label Transfer in Urban Scenes (arXiv'23) <a href="https://fuxiao0719.github.io/projects/panopticnerf360/" target='_blank'>[Website]</a></h1>
+<h2>PanopticNeRF-360: Panoramic 3D-to-2D Label Transfer in Urban Scenes (T-PAMI'25) <a href="https://fuxiao0719.github.io/projects/panopticnerf360/" target='_blank'>[Website]</a></h1>
 
 Check code at branch <a href="https://github.com/fuxiao0719/PanopticNeRF/tree/panopticnerf360" target='_blank'>panopticnerf360</a>
 
