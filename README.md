@@ -19,7 +19,7 @@
     <sup>+</sup>corresponding author
 </div>
 
-<strong>arXiv 2023 </strong>
+<strong>T-PAMI 2025 </strong>
 
 <h4 align="center">
   <a href="https://arxiv.org/pdf/2309.10815.pdf" target='_blank'>[Paper]</a> •
